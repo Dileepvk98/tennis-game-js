@@ -8,7 +8,7 @@ function logout(){
 var canvas, canvascontext;
 var bX,bY;
 var ballSpeedX=5,ballSpeedY=3, P1score=0,P2score=0, paddle1Y=250,paddle2Y=250;
-const PADDLE_LENGTH=100, PADDLE_WIDTH=10, WINSCORE=3;
+const PADDLE_LENGTH=100, PADDLE_WIDTH=10, WINSCORE=5;
 var showWinDisp=false, start=true;
 
 window.onload=function() {
