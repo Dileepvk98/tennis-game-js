@@ -4,11 +4,14 @@ function logout(){
     if(c){window.location = "login.html"}
 }
 
+
+
 //Game code
 var canvas, canvascontext;
 var bX,bY;
 var ballSpeedX=5,ballSpeedY=3, P1score=0,P2score=0, paddle1Y=250,paddle2Y=250;
-const PADDLE_LENGTH=100, PADDLE_WIDTH=10, WINSCORE=5;
+var ballSpeedDelta=0.35,compPadSpeed=7,x=0, PADDLE_LENGTH=100;
+const PADDLE_WIDTH=10, WINSCORE=5;
 var showWinDisp=false, start=true;
 
 window.onload=function() {
@@ -16,7 +19,18 @@ window.onload=function() {
     canvascontext=canvas.getContext("2d")
     canvascontext.font="25px Arial";
 
-    var fps=60;
+     // Retrieve difficulty
+     var fps = localStorage.getItem("diff");  
+     if(fps==40){
+          ballSpeedDelta=0.25; compPadSpeed=5; x=0;}
+     else if(fps==50){ 
+         ballSpeedDelta=0.35; compPadSpeed=7; x=0;}
+     else if(fps==60){ 
+         ballSpeedDelta=0.4; compPadSpeed=10; x=0;}
+     else if(fps==85){ 
+         ballSpeedDelta=0.4; compPadSpeed=7; x=30;}    
+
+
     ballReset();
     setInterval(function (){
                 moveBall();
@@ -57,10 +71,10 @@ function calcMousePos(evt){
 }
 function compMovement(){
     if(paddle2Y+PADDLE_LENGTH/2<bY-30){
-        paddle2Y+=5;
+        paddle2Y+=compPadSpeed;
     }
     else if(paddle2Y+PADDLE_LENGTH/2>bY+30){
-        paddle2Y-=5;
+        paddle2Y-=compPadSpeed;
     }
 
 }
@@ -80,7 +94,7 @@ function moveBall(){
             ballSpeedX=-ballSpeedX;
             //change speed upon where it hits
             var deltaY=bY-(paddle1Y+PADDLE_LENGTH/2);
-            ballSpeedY=deltaY*0.35;
+            ballSpeedY=deltaY * ballSpeedDelta;
         }
         else{
             P2score++;
@@ -157,8 +171,8 @@ function drawEverything(){
         colorRect(canvas.width/2,i+15,2,20,"white");
     }
     //left pad
-    colorRect(10,paddle1Y,PADDLE_WIDTH,PADDLE_LENGTH,'red');
-    //right pad
+    colorRect(10,paddle1Y,PADDLE_WIDTH,PADDLE_LENGTH-x/0.8,'red');
+    //right pad CPU
     colorRect(canvas.width-PADDLE_WIDTH-10,paddle2Y,PADDLE_WIDTH,PADDLE_LENGTH,'blue');
     //ball
     colorBall(bX,bY,10);
