@@ -18,7 +18,7 @@ function testpg(){window.location = "test.html"}
 
 
 //set difficulty
-var difficulty = 60;
+var difficulty = 65;
 var d="medium";
 function setdifficulty(){
   if (document.getElementById('r1').checked) {

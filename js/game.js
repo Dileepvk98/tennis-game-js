@@ -4,8 +4,6 @@ function logout(){
     if(c){window.location = "login.html"}
 }
 
-
-
 //Game code
 var canvas, canvascontext;
 var bX,bY;
@@ -21,14 +19,14 @@ window.onload=function() {
 
      // Retrieve difficulty
      var fps = localStorage.getItem("diff");  
-     if(fps==40){
+     if(fps==45){
           ballSpeedDelta=0.25; compPadSpeed=5; x=0;}
-     else if(fps==50){ 
+     else if(fps==55){ 
          ballSpeedDelta=0.35; compPadSpeed=7; x=0;}
-     else if(fps==60){ 
-         ballSpeedDelta=0.4; compPadSpeed=10; x=0;}
+     else if(fps==65){ 
+         ballSpeedDelta=0.4; compPadSpeed=10; x=10;}
      else if(fps==85){ 
-         ballSpeedDelta=0.4; compPadSpeed=7; x=30;}    
+         ballSpeedDelta=0.4; compPadSpeed=8; x=30;}    
 
 
     ballReset();
@@ -54,8 +52,6 @@ window.onload=function() {
                 paddle1Y=mousePos.y-PADDLE_LENGTH/2;
             });        
 }    
-
-
 
 function calcMousePos(evt){
     //evt is mouse info
@@ -173,7 +169,7 @@ function drawEverything(){
     //left pad
     colorRect(10,paddle1Y,PADDLE_WIDTH,PADDLE_LENGTH-x/0.8,'red');
     //right pad CPU
-    colorRect(canvas.width-PADDLE_WIDTH-10,paddle2Y,PADDLE_WIDTH,PADDLE_LENGTH,'blue');
+    colorRect(canvas.width-PADDLE_WIDTH-10,paddle2Y,PADDLE_WIDTH,PADDLE_LENGTH+x/2,'blue');
     //ball
     colorBall(bX,bY,10);
     //score p1
