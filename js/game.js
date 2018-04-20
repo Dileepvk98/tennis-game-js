@@ -7,9 +7,9 @@ function logout(){
 //Game code
 var canvas, canvascontext;
 var bX,bY;
-var ballSpeedX=5,ballSpeedY=3, P1score=0,P2score=0, paddle1Y=250,paddle2Y=250;
-var ballSpeedDelta=0.35,compPadSpeed=7,x=0, PADDLE_LENGTH=100;
-const PADDLE_WIDTH=10, WINSCORE=5;
+var ballSpeedX=-5,ballSpeedY=3, P1score=0,P2score=0, paddle1Y=250,paddle2Y=250;
+var ballSpeedDelta=0.35,compPadSpeed=9,x=0, PADDLE_LENGTH=100, WINSCORE=1;
+const PADDLE_WIDTH=10;
 var showWinDisp=false, start=true;
 
 window.onload=function() {
@@ -17,16 +17,20 @@ window.onload=function() {
     canvascontext=canvas.getContext("2d")
     canvascontext.font="25px Arial";
 
-     // Retrieve difficulty
+     // Retrieve and set difficulty
      var fps = localStorage.getItem("diff");  
-     if(fps==45){
-          ballSpeedDelta=0.25; compPadSpeed=5; x=0;}
-     else if(fps==55){ 
-         ballSpeedDelta=0.35; compPadSpeed=7; x=0;}
-     else if(fps==65){ 
-         ballSpeedDelta=0.4; compPadSpeed=10; x=10;}
-     else if(fps==85){ 
-         ballSpeedDelta=0.4; compPadSpeed=8; x=30;}    
+     if(fps==50){
+          ballSpeedDelta=0.25; compPadSpeed=9; x=0; WINSCORE=5;
+        }
+     else if(fps==60){ 
+         ballSpeedDelta=0.35; compPadSpeed=12; x=0; WINSCORE=5;
+        }
+     else if(fps==75){ 
+         ballSpeedDelta=0.4; compPadSpeed=15; x=25; WINSCORE=5;
+        }
+     else if(fps==90){ 
+         ballSpeedDelta=0.4; compPadSpeed=18; x=55; WINSCORE=3;
+        }    
 
 
     ballReset();
@@ -49,7 +53,7 @@ window.onload=function() {
     canvas.addEventListener('mousemove',
             function(evt){
                 var mousePos=calcMousePos(evt);
-                paddle1Y=mousePos.y-PADDLE_LENGTH/2;
+                paddle1Y=mousePos.y-PADDLE_LENGTH/4.5;
             });        
 }    
 
@@ -66,10 +70,10 @@ function calcMousePos(evt){
     };
 }
 function compMovement(){
-    if(paddle2Y+PADDLE_LENGTH/2<bY-30){
+    if(paddle2Y+PADDLE_LENGTH/1.5<bY-15 && bX>canvas.width/6){
         paddle2Y+=compPadSpeed;
     }
-    else if(paddle2Y+PADDLE_LENGTH/2>bY+30){
+    else if(paddle2Y+PADDLE_LENGTH/1.5>bY+15  && bX>canvas.width/6){
         paddle2Y-=compPadSpeed;
     }
 
@@ -103,7 +107,7 @@ function moveBall(){
             ballSpeedX=-ballSpeedX;
             //change speed upon where it hits
             var deltaY=bY-(paddle2Y+PADDLE_LENGTH/2);
-            ballSpeedY=deltaY*0.35;
+            ballSpeedY=deltaY*ballSpeedDelta;
         }
         else{
             P1score++;
@@ -126,7 +130,7 @@ function ballReset(){
     }
     ballSpeedX=-ballSpeedX;
     ballSpeedY=3;
-    bX=canvas.width/2+275;
+    bX=canvas.width/2;
     bY=canvas.height/2;
 } 
 
@@ -136,7 +140,7 @@ function colorRect(leftX,topY,width,height,color){
 }
 
 function colorBall(X,Y,r){
-    canvascontext.fillStyle="lime";
+    canvascontext.fillStyle="white";
     canvascontext.beginPath();
     canvascontext.arc(X,Y,r,0,Math.PI*2,true);
     canvascontext.fill();
@@ -153,30 +157,31 @@ function drawEverything(){
 
     if(showWinDisp){
         if(P1score>=WINSCORE){
-            canvascontext.fillText("Player 1 Wins !",canvas.width/2-75,canvas.height/2-50);
+            canvascontext.fillText("Congratulations You WON !",canvas.width/2-115,canvas.height/2-50);
         }
         else{
-            canvascontext.fillText("Computer  Wins !",canvas.width/2-85,canvas.height/2-50);
+            canvascontext.fillText("You LOST !",canvas.width/2-55,canvas.height/2-50);
         }
         canvascontext.fillText("Click to Continue",canvas.width/2-85,300);
         return;
     }
-
+    colorRect(0,0,canvas.width,canvas.height,'limegreen');
+    canvascontext.font="16px Arial";
     //draw net
     for(var i=0;i<canvas.height;i+=50){
-        colorRect(canvas.width/2,i+15,2,20,"white");
+        colorRect(canvas.width/2,i+15,3,20,"white");
     }
     //left pad
     colorRect(10,paddle1Y,PADDLE_WIDTH,PADDLE_LENGTH-x/0.8,'red');
     //right pad CPU
-    colorRect(canvas.width-PADDLE_WIDTH-10,paddle2Y,PADDLE_WIDTH,PADDLE_LENGTH+x/2,'blue');
+    colorRect(canvas.width-PADDLE_WIDTH-10,paddle2Y,PADDLE_WIDTH,PADDLE_LENGTH+x/3,'blue');
     //ball
     colorBall(bX,bY,10);
     //score p1
-    canvascontext.fillStyle="cyan";
+    canvascontext.fillStyle="black";
     canvascontext.fillText("P1 score : ",100,50);
-    canvascontext.fillText(P1score,220,50);
+    canvascontext.fillText(P1score,180,50);
     //score p2
     canvascontext.fillText("CPU score : ",canvas.width-240,50);
-    canvascontext.fillText(P2score,canvas.width-100,50);
+    canvascontext.fillText(P2score,canvas.width-145,50);
 }

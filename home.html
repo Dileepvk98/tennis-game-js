@@ -28,27 +28,33 @@
       </div>
     </div>
     <div id="site_content">
-      <h2>Welcome</h2>
-      <h4 style="color:orangered">Rules</h4>
-      <p>
+        <p style="margin-top:-25px;">
+      <h3 style="color:orangered">Rules</h3>
         <ul>
-          <li>Get 5 points to win !</li>
           <li>Control the RED pad.</li>
           <li>Hit with either ends of the pad to increase the ball speed.</li>
           <li>Hit using the middle portion to decrease the ball speed.</li>
-          <li>Click 'PLAY' to reset in between or wait and loose :P</li>
-          <li style="color:midnightblue">Warning !<br>Refreshing the page or swithcing to another webage will reset the game.</li>
+          <li style="color:midnightblue">Set the difficulty before starting.</li>
+          <li>Click 'PLAY' anytime to restart  or wait and loose :P</li>
+          <li style="color:midnightblue">Refreshing the page or swithcing to another webage will reset the game.</li>
         </ul> 
         <h2 style="font-size:20px;margin-top:-10px;">Select Difficulty</h2>
         <div class="diificulty">
           <input type="radio" name="rg" value="Easy" id="r1" >&nbsp;Easy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="radio" name="rg" value="Medium" id="r2"checked>&nbsp;Medium [Default]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="rg" value="Medium" id="r2"checked>&nbsp;Medium &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <input type="radio" name="rg" value="Pro" id="r3">&nbsp;Pro&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="radio" name="rg" value="Handicap [Good luck :P ]" id="r4">&nbsp;Handicap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="rg" value="Impossible [Good luck :P ]" id="r4">&nbsp;Impossible&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button style="background:crimson" onclick="setdifficulty()">Set difficulty</button>
           <label style="margin-left:20px;color:red" id="diffset"></label>
         </div>
-        <h3>More stuff coming soon</h3>
+        <br>
+        <h2 style="font-size:20px;margin-top:-10px;">Difficulty settings</h2>
+      <ul>
+        <li>Easy  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;FPS : 50 | Target Score : 5</li>
+        <li>Medium &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;FPS : 60 | Target Score : 5</li>
+        <li>Pro &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;FPS : 75 | Target Score : 5 | Player pad size decreased.</li>
+        <li>Impossible  -&nbsp;&nbsp;FPS : 90 | Target Score : 3 | Player pad size decreased.</li>
+      </ul>
       </p>
     <div id="content"-->
       
